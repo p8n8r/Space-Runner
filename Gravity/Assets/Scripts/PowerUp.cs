@@ -9,7 +9,7 @@ public class PowerUp : MonoBehaviour {
 
 		if (other.tag == "Player") {
 			hud = GameObject.Find("Main Camera").GetComponent<Hud>();
-			hud.IncreaseScore(10);
+			hud.IncreaseScore(5);
 			Destroy (this.gameObject);
 		}
 

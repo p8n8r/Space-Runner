@@ -10,24 +10,39 @@ public class BeatLevel : MonoBehaviour {
 	void Start () {
 		score = PlayerPrefs.GetInt ("Score");
 		level = PlayerPrefs.GetInt ("Level");
+
+		if (PlayerPrefs.HasKey("Level" + level.ToString())) {
+			if (score > PlayerPrefs.GetInt("Level" + level.ToString()))
+				PlayerPrefs.SetInt ("Level" + level.ToString(), score );
+		} 
+		else {
+			PlayerPrefs.SetInt ("Level" + level.ToString(), score );
+		}
+
 		Physics2D.gravity = new Vector2 (0, -50);
 	}
+
+	public void nextLevel()
+	{
+		Application.LoadLevel(level + 1);
+	}
+
+	public void retry()
+	{
+		Application.LoadLevel(level);
+	}
 	
+	public void levelSelect()
+	{
+		Application.LoadLevel(1);
+	}
+
 	void OnGUI() {
-		GUI.Label (new Rect (Screen.width / 2 - 40, 50, 80, 30), "You Won!!!");
 		
-		//GUI.Label (new Rect (Screen.width / 2 - 40, 150, 80, 30), "Score: " + score);
-		
-		if (GUI.Button (new Rect (Screen.width / 2 - 40, 200, 80, 30), "Retry")) {
-			Application.LoadLevel(level);
-		}
+		GUI.Label (new Rect (Screen.width/2 - 35 , Screen.height/2 - Screen.height/10, 100, 30), "Score: " + (int)(score));
+		GUI.Label (new Rect (Screen.width/2 - 50 , Screen.height/2 - Screen.height/18, 100, 30), "High Score: " + PlayerPrefs.GetInt("Level" + level.ToString()));
 
-		if (GUI.Button (new Rect (Screen.width / 2 - 40, 300, 80, 30), "Next Level")) {
-			Application.LoadLevel(level + 1);
-		}
-
-		if (GUI.Button (new Rect (Screen.width / 2 - 45, 400, 90, 30), "Level Select")) {
-			Application.LoadLevel(1);
-		}
 	}
 }
+
+

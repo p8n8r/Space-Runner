@@ -15,12 +15,16 @@ namespace UnityStandardAssets.CrossPlatformInput
 
         public void SetDownState()
         {
+
+
             CrossPlatformInputManager.SetButtonDown(Name);
         }
 
 
         public void SetUpState()
         {
+			if (Name == "Start Game") 
+				Application.LoadLevel(1);
             CrossPlatformInputManager.SetButtonUp(Name);
         }
 
